@@ -23,16 +23,28 @@ Use **1-minute**, **3-minute**, and **5-minute** charts with:
 - **Volume bars**
 
 > **1-min = entry and exit**  
-> **5-min = trend confirmation**  
+> **5-min = trend confirmation (local pullback)**  
 > **3-min = noise filter**
 
 ---
 
 ## ✅ 3. Entry Checklist
 
-1. **1-min MFI ≤ 20**  → stock is oversold, bounce setup forming.  
-2. **5-min:** at least **3 red volume bars in a row** (the more, the better) — but stock must still be **flat or up overall** (above or near VWAP).  
-3. **Trigger to buy:** on the **1-min chart**, MFI starts to rise or the **first small green candle** appears.
+**Gate 0 — Session Context:**  
+- The overall session must be **up or flat** — price above or near VWAP, or EMA20 on 5-min chart sloping flat/up.  
+- Skip trades on full downtrend days.
+
+**Step 1 — Entry Setup (1-min):**  
+- **1-min MFI ≤ 20** (on a closed bar) → stock is oversold, bounce setup forming.
+
+**Step 2 — Local Pullback Confirmation (5-min):**  
+- **5-min EMA20 sloping downward** (the lower, the better).  
+- **At least 3 consecutive red volume bars** (the more, the better).  
+  → This confirms a **temporary pullback** inside an overall up/flat session.
+
+**Step 3 — Trigger to Buy (1-min):**  
+- On the 1-min chart, **MFI starts to rise** (mfi[0] > mfi[1]) **or** the **first small green candle** appears.  
+- Avoid chasing **large reversal candles** — wait for a normal-sized bar or a tiny pullback if the first green candle is huge.
 
 ---
 
@@ -69,11 +81,13 @@ NVDA = $465 → check $460, $455, $450 calls → choose the one with **lowest pr
 
 ## 🎯 6. Exit Rules (Quick & Simple)
 
-- **Sell when 1-min MFI goes above 60.**  
+- **Primary exit:** Sell when **1-min MFI goes above 60.**  
   - If you’re **green**, take the profit.  
   - If you’re **not green**, cut it — failed bounce.  
+- **Bonus exit:** If you’re up **8% or more**, **just sell and move on** — don’t overthink it.  
 - **If MFI spikes near 80 but price goes sideways, exit immediately.**  
-- **Risk stop:** if the option drops **20–30%**, exit.  
+- **Stop loss:** still being refined. 20–30% drawdown is a **gauge**, not a hard rule.  
+  Eric’s current view: *“Stop losses shouldn’t be automatic or based purely on percentage. That’s how people get trapped out of winning trades.”*
 
 ---
 
@@ -89,7 +103,7 @@ You’re not exiting by a timer — you’re exiting by **momentum behavior**.
 - Never stay in longer than **20 minutes** total — theta will eat your profits.
 
 ✅ *Think of it this way:*  
-Stay in **while momentum is alive**, exit the moment it dies.
+Stay in **while momentum is alive**, exit the moment it dies — or if you’re already up 8%, just take it and move on.
 
 ---
 
@@ -120,16 +134,38 @@ Then repeat.
 ## 🧩 Example
 - NVDA = $465  
 - 1-min MFI = 18  
-- 5-min shows 4 red bars, still above VWAP  
+- 5-min EMA20 sloping down with 4 red bars, still above VWAP  
 - You buy **$460 call**, this week expiry  
 - Limit = **mid ($4.55)** or **bid+0.05** if spread wide  
 - MFI rises → 1-min MFI hits 60 → **sell** (profit or cut).  
+- Or if you’re already **+8%**, sell right there.  
 - Total time: 5–12 minutes, one clean bounce.  
 
 ---
 
 **Summary:**  
-Buy efficient ITM calls when 1-min MFI ≤ 20 and 5-min shows sellers exhausted.  
-Exit when 1-min MFI > 60 or momentum stalls.  
+Buy efficient ITM calls when 1-min MFI ≤ 20, 5-min EMA20 slopes down with 3+ red bars inside an up/flat session.  
+Exit when 1-min MFI > 60, you’re up 8%, or momentum stalls.  
+Stop losses are currently **manual and discretionary**, used only as guidance — not automated.  
 Stay disciplined, never chase, and never fight a falling stock.
+
+
+
+---
+
+## 🧠 Stop Loss Refinement (In Progress)
+The stop loss logic for ERIC MFI is still being developed. The current 20–30% drawdown range is used only as a **visual gauge**, not an automated trigger.
+
+Eric’s philosophy:
+> “Stop losses shouldn’t be automatic or based purely on percentage. That’s how people get trapped out of winning trades.”
+
+### Current Thinking:
+- The stop mechanism should rely on **market structure and momentum**, not arbitrary numbers.  
+- Better candidates being tested:
+  1. **MFI behavior:** exits when 1-min MFI keeps falling or fails to recover for several bars after entry.  
+  2. **Candle structure:** exits when price closes below the **last swing low** or breaks structure on 1-min.  
+  3. **Volume exhaustion:** if volume surges again while MFI stays low → signal failed bounce.  
+  4. **Dynamic trailing logic:** scaling out on partial recoveries, cutting remaining size if MFI rolls back down.
+
+Once refined, this section will define a **single unified exit rule** combining MFI, structure, and price confirmation — replacing the percentage-based guideline.
 
